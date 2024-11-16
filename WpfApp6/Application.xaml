@@ -1,0 +1,24 @@
+﻿<Application x:Class="Application"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WpfApp6.MVVM"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Stili/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Animazione per fare lampeggiare l'header -->
+            <Storyboard x:Key="BlinkingAnimation"
+                        RepeatBehavior="Forever">
+                <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                From="Red"
+                                To="Black"
+                                Duration="0:0:0.5"
+                                AutoReverse="True" />
+            </Storyboard>
+            <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <local:ValidationErrorToolTipConverter x:Key="ValidationErrorToolTipConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,129 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WpfApp7.MVVM.Validation">
+
+    <!-- Converter per gestire i ToolTip di errore -->
+    <local:ValidationErrorToolTipConverter x:Key="ValidationErrorToolTipConverter" />
+
+    <!-- Stile per i TextBox con errori di validazione -->
+    <Style TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError"
+                     Value="True">
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ValidationErrorToolTipConverter}">
+                            <Binding RelativeSource="{RelativeSource Self}"
+                                     Path="(Validation.Errors)" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Stile per i ComboBox con errori di validazione -->
+    <Style TargetType="ComboBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError"
+                     Value="True">
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ValidationErrorToolTipConverter}">
+                            <Binding RelativeSource="{RelativeSource Self}"
+                                     Path="(Validation.Errors)" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Stile per i PasswordBox con errori di validazione -->
+    <Style TargetType="PasswordBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError"
+                     Value="True">
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ValidationErrorToolTipConverter}">
+                            <Binding RelativeSource="{RelativeSource Self}"
+                                     Path="(Validation.Errors)" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Stile per i DatePicker con errori di validazione -->
+    <Style TargetType="DatePicker">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError"
+                     Value="True">
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ValidationErrorToolTipConverter}">
+                            <Binding RelativeSource="{RelativeSource Self}"
+                                     Path="(Validation.Errors)" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Stile per i RichTextBox con errori di validazione -->
+    <Style TargetType="RichTextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError"
+                     Value="True">
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ValidationErrorToolTipConverter}">
+                            <Binding RelativeSource="{RelativeSource Self}"
+                                     Path="(Validation.Errors)" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Animazione per fare lampeggiare l'header -->
+    <Storyboard x:Key="BlinkingAnimation"
+                RepeatBehavior="Forever">
+        <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                        From="Red"
+                        To="Black"
+                        Duration="0:0:0.5"
+                        AutoReverse="True" />
+    </Storyboard>
+
+    <!-- Stile per l'Expander -->
+    <Style TargetType="Expander">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Items.Count, ElementName=ErrorsDataGrid}"
+                         Value="0">
+                <Setter Property="Foreground"
+                        Value="Black" />
+                <Setter Property="FontWeight"
+                        Value="Normal" />
+                <DataTrigger.EnterActions>
+                    <StopStoryboard BeginStoryboardName="StartBlinkingAnimation" />
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Items.Count, ElementName=ErrorsDataGrid}"
+                         Value="1">
+                <Setter Property="Foreground"
+                        Value="Red" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard x:Name="StartBlinkingAnimation"
+                                     Storyboard="{StaticResource BlinkingAnimation}" />
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

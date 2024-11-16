@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="ElencoErrori"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WpfApp6"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <UserControl.Resources>
+        <!-- Animazione per fare lampeggiare l'header -->
+        <Storyboard x:Key="BlinkingAnimation"
+                    RepeatBehavior="Forever">
+            <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                            From="Red"
+                            To="Black"
+                            Duration="0:0:0.5"
+                            AutoReverse="True" />
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid>
+        <Expander Header="Dettagli degli Errori"
+                  IsExpanded="False"
+                  Name="ErrorExpander">
+            <DataGrid x:Name="ErrorsDataGrid"
+                      AutoGenerateColumns="False"
+                      HeadersVisibility="Column"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Proprietà"
+                                        Binding="{Binding PropertyName}"
+                                        Width="Auto" />
+                    <DataGridTextColumn Header="Messaggio di Errore"
+                                        Binding="{Binding ErrorMessage}"
+                                        Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Expander>
+    </Grid>
+</UserControl>
